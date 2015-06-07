@@ -1,0 +1,58 @@
+From 6828b70f1e47a0586ad3e42d5e9cc07ff5f8d4b7 Mon Sep 17 00:00:00 2001
+From: mostafa-z <mostafazarghami@gmail.com>
+Date: Sun, 31 May 2015 19:00:34 +0430
+Subject: [PATCH] update:raise thermal treshold
+
+---
+ arch/arm/boot/dts/lge/msm8974pro-g3/msm8974pro-g3-global_com/msm8974pro-g3-global_com-pm.dtsi | 4 ++--
+ arch/arm/boot/dts/msm8974.dtsi                                                                | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm/boot/dts/lge/msm8974pro-g3/msm8974pro-g3-global_com/msm8974pro-g3-global_com-pm.dtsi b/arch/arm/boot/dts/lge/msm8974pro-g3/msm8974pro-g3-global_com/msm8974pro-g3-global_com-pm.dtsi
+index 7d476a5..57920f9 100755
+--- a/arch/arm/boot/dts/lge/msm8974pro-g3/msm8974pro-g3-global_com/msm8974pro-g3-global_com-pm.dtsi
++++ b/arch/arm/boot/dts/lge/msm8974pro-g3/msm8974pro-g3-global_com/msm8974pro-g3-global_com-pm.dtsi
+@@ -55,9 +55,9 @@
+ 	};
+ 
+ 	qcom,msm-thermal {
+-		qcom,limit-temp = <80>;
++		qcom,limit-temp = <85>;
+ 		qcom,temp-hysteresis = <5>;
+-		qcom,core-limit-temp = <90>;
++		qcom,core-limit-temp = <95>;
+ 		qcom,core-temp-hysteresis = <5>;
+ 	};
+ 
+diff --git a/arch/arm/boot/dts/msm8974.dtsi b/arch/arm/boot/dts/msm8974.dtsi
+index 4bef256..21281f8 100644
+--- a/arch/arm/boot/dts/msm8974.dtsi
++++ b/arch/arm/boot/dts/msm8974.dtsi
+@@ -2266,20 +2266,20 @@
+ 		compatible = "qcom,msm-thermal";
+ 		qcom,sensor-id = <5>;
+ 		qcom,poll-ms = <250>;
+-		qcom,limit-temp = <60>;
++		qcom,limit-temp = <85>;
+ 		qcom,temp-hysteresis = <10>;
+ 		qcom,freq-step = <2>;
+ 		qcom,freq-control-mask = <0xf>;
+-		qcom,core-limit-temp = <80>;
++		qcom,core-limit-temp = <95>;
+ 		qcom,core-temp-hysteresis = <10>;
+ 		qcom,core-control-mask = <0xe>;
+ 		qcom,hotplug-temp = <110>;
+ 		qcom,hotplug-temp-hysteresis = <20>;
+ 		qcom,cpu-sensors = "tsens_tz_sensor5", "tsens_tz_sensor6",
+ 				"tsens_tz_sensor7", "tsens_tz_sensor8";
+ 		qcom,freq-mitigation-temp = <110>;
+-		qcom,freq-mitigation-temp-hysteresis = <20>;
+-		qcom,freq-mitigation-value = <960000>;
++		qcom,freq-mitigation-temp-hysteresis = <15>;
++		qcom,freq-mitigation-value = <1267200>;
+ 		qcom,freq-mitigation-control-mask = <0x01>;
+ 		qcom,vdd-restriction-temp = <5>;
+ 		qcom,vdd-restriction-temp-hysteresis = <10>;
+--
+libgit2 0.22.0
+

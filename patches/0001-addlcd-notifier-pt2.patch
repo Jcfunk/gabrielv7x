@@ -1,0 +1,28 @@
+From 624996f5424d50f2051e2be7657e6cee11bf5507 Mon Sep 17 00:00:00 2001
+From: mostafa-z <mostafazarghami@gmail.com>
+Date: Sun, 7 Jun 2015 00:44:40 +0430
+Subject: [PATCH] add:lcd notifier-pt2
+
+---
+ drivers/video/msm/mdss/Kconfig | 5 +++++
+ 1 file changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/drivers/video/msm/mdss/Kconfig b/drivers/video/msm/mdss/Kconfig
+index 3cfe6cf..96816fc 100644
+--- a/drivers/video/msm/mdss/Kconfig
++++ b/drivers/video/msm/mdss/Kconfig
+@@ -40,6 +40,11 @@ config LGE_VSYNC_SKIP
+ 	---help---
+ 	This feature provides VSYNC skip scheme.
+ 
++config LCD_NOTIFY
++	depends on FB_MSM_MDSS
++	bool "Enable LCD Notifier Helper"
++	default y
++
+ config FB_MSM_MDSS_KCAL_CTRL
+ 	depends on FB_MSM_MDSS
+ 	bool "MDSS color control"
+--
+libgit2 0.22.0
+

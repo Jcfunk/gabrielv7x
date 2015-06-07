@@ -1,0 +1,33 @@
+From 4f5358652f89c439f622c294ffdecb0510168ac4 Mon Sep 17 00:00:00 2001
+From: mostafa-z <mostafazarghami@gmail.com>
+Date: Sun, 7 Jun 2015 00:22:41 +0430
+Subject: [PATCH] gpu:increase 27 MHz bus speed for better performance in lower freq
+
+---
+ arch/arm/boot/dts/msm8974pro.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/msm8974pro.dtsi b/arch/arm/boot/dts/msm8974pro.dtsi
+index 1cc6d0d..509c82f 100644
+--- a/arch/arm/boot/dts/msm8974pro.dtsi
++++ b/arch/arm/boot/dts/msm8974pro.dtsi
+@@ -1665,14 +1665,14 @@
+                qcom,gpu-pwrlevel@7{
+                        reg = <7>;
+                        qcom,gpu-freq = <27000000>;
+-                       qcom,bus-freq = <0>;
++                       qcom,bus-freq = <1>;
+                        qcom,io-fraction = <101>;
+                };
+ 
+                qcom,gpu-pwrlevel@8 {
+                        reg = <8>;
+                        qcom,gpu-freq = <27000000>;
+-                       qcom,bus-freq = <0>;
++                       qcom,bus-freq = <1>;
+                        qcom,io-fraction = <101>;
+                };
+        };
+--
+libgit2 0.22.0
+
