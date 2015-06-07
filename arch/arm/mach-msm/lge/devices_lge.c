@@ -46,16 +46,6 @@
 /* in drivers/staging/android */
 #include "ram_console.h"
 
-#if defined(CONFIG_LCD_KCAL)
-/*             
-                             
-                                   
-   */
-#include <linux/module.h>
-#include "../../../../drivers/video/msm/mdss/mdss_fb.h"
-extern int update_preset_lcdc_lut(void);
-#endif /* CONFIG_LCD_KCAL */
-
 static int cn_arr_len = 3;
 
 struct cn_prop {
@@ -102,15 +92,15 @@ int __init lge_init_dt_scan_chosen(unsigned long node, const char *uname,
 			continue;
 		if (type == CELL_U32) {
 			u32 = of_get_flat_dt_prop(node, cn_array[i].name, &len);
-			if (u32 != NULL)
+			if(u32 != NULL)
 				cn_array[i].cell_u32 = of_read_ulong(u32, 1);
 		} else if (type == CELL_U64) {
 			u32 = of_get_flat_dt_prop(node, cn_array[i].name, &len);
-			if (u32 != NULL)
+			if(u32 != NULL)
 				cn_array[i].cell_u64 = of_read_number(u32, 2);
 		} else {
 			p = of_get_flat_dt_prop(node, cn_array[i].name, &len);
-			if (p != NULL)
+			if(p != NULL)
 				strlcpy(cn_array[i].str, p, len);
 		}
 		cn_array[i].is_valid = 1;
@@ -157,8 +147,6 @@ void get_dt_cn_prop_str(const char *name, char *value)
 	}
 	printk(KERN_ERR "The %s node have not property value\n", name);
 }
-
-
 
 #ifdef CONFIG_ANDROID_RAM_CONSOLE
 static struct ram_console_platform_data ram_console_pdata = {
@@ -212,8 +200,6 @@ void __init lge_add_persist_ram_devices(void)
 	/* change to variable value to ram->start value */
 	lge_persist_ram.start = mt->start - LGE_PERSISTENT_RAM_SIZE;
 	pr_info("PERSIST RAM CONSOLE START ADDR : 0x%x\n", lge_persist_ram.start);
-	pr_info("LGE PERSISTENT RAM SIZE : 0x%x\n", LGE_PERSISTENT_RAM_SIZE);
-	pr_info("LGE RAM Console Size : 0x%x\n", LGE_RAM_CONSOLE_SIZE);
 
 	ret = persistent_ram_early_init(&lge_persist_ram);
 	if (ret) {
@@ -225,15 +211,14 @@ void __init lge_add_persist_ram_devices(void)
 
 void __init lge_reserve(void)
 {
-	
 #ifdef CONFIG_KEXEC_HARDBOOT
- 	struct memtype_reserve *mt = &reserve_info->memtype_reserve_table[MEMTYPE_EBI1];
-phys_addr_t start = mt->start - SZ_1M - LGE_PERSISTENT_RAM_SIZE;
- int ret = memblock_remove(start, SZ_1M);
- if(!ret)
- pr_info("Hardboot page reserved at 0x%X\n", start);
- else
- pr_err("Failed to reserve space for hardboot page at 0x%X!\n", start);
+	struct memtype_reserve *mt = &reserve_info->memtype_reserve_table[MEMTYPE_EBI1];
+	phys_addr_t start = mt->start - SZ_1M - LGE_PERSISTENT_RAM_SIZE;
+	int ret = memblock_remove(start, SZ_1M);
+	if(!ret)
+	pr_info("Hardboot page reserved at 0x%X\n", start);
+	else
+	pr_err("Failed to reserve space for hardboot page at 0x%X!\n", start);
 #endif	
 
 #if defined(CONFIG_ANDROID_PERSISTENT_RAM)
@@ -249,8 +234,6 @@ void __init lge_add_persistent_device(void)
 	/* write ram console addr to imem */
 	lge_set_ram_console_addr(lge_persist_ram.start,
 			LGE_RAM_CONSOLE_SIZE);
-			pr_info("LGE RAM Console Size : 0x%x\n", LGE_RAM_CONSOLE_SIZE);
-			
 #endif
 #endif
 #ifdef CONFIG_PERSISTENT_TRACER
@@ -261,7 +244,7 @@ void __init lge_add_persistent_device(void)
 
 
 
-/*                                                              */
+/* BEGIN : janghyun.baek@lge.com 2012-12-26 For cable detection */
 #ifdef CONFIG_LGE_PM
 struct chg_cable_info_table {
 	int threshhold;
@@ -293,7 +276,7 @@ void __init lge_add_qfprom_devices(void)
 static bool cable_type_defined;
 static struct chg_cable_info_table pm8941_acc_cable_type_data[MAX_CABLE_NUM];
 #endif
-/*                                        */
+/* END : janghyun.baek@lge.com 2012-12-26 */
 #ifdef CONFIG_LGE_DIAG_ENABLE_SYSFS
 static struct platform_device lg_diag_cmd_device = {
 	.name = "lg_diag_cmd",
@@ -309,7 +292,7 @@ void __init lge_add_diag_devices(void)
 }
 #endif
 
-/*                                                              */
+/* BEGIN : janghyun.baek@lge.com 2012-12-26 For cable detection */
 #ifdef CONFIG_LGE_PM
 void get_cable_data_from_dt(void *of_node)
 {
@@ -486,7 +469,7 @@ void lge_pm_read_cable_info(struct qpnp_vadc_chip *vadc)
 	lge_pm_get_cable_info(vadc, &lge_cable_info);
 }
 #endif
-/*                                                            */
+/* END : janghyun.baek@lge.com 2012-12-26 For cable detection */
 
 #if defined(CONFIG_LGE_KSWITCH)
 static int kswitch_status;
@@ -534,13 +517,13 @@ __setup("uart_console=", lge_uart_mode);
 	return value : 1 --> right after laf complete & reset
 */
 
-int android_dlcomplete;
+int android_dlcomplete = 0;
 
 int __init lge_android_dlcomplete(char *s)
 {
-	if (strncmp(s, "1", 1) == 0)   /* if same string */
+	if(strncmp(s,"1",1) == 0)   // if same string
 		android_dlcomplete = 1;
-	else	/* not same string */
+	else	// not same string
 		android_dlcomplete = 0;
 	printk("androidboot.dlcomplete = %d\n", android_dlcomplete);
 
@@ -576,7 +559,7 @@ int __init lge_boot_mode_init(char *s)
 	else if (!strcmp(s, "pif_910k"))
 		lge_boot_mode = LGE_BOOT_MODE_PIFBOOT3;
 	printk("ANDROID BOOT MODE : %d %s\n", lge_boot_mode, s);
-	/*                            */
+	/* LGE_UPDATE_E for MINIOS2.0 */
 
 	return 1;
 }
@@ -595,17 +578,17 @@ int lge_get_factory_boot(void)
 	 *   cable must be factory cable.
 	 */
 	switch (lge_boot_mode) {
-	case LGE_BOOT_MODE_FACTORY:
-	case LGE_BOOT_MODE_FACTORY2:
-	case LGE_BOOT_MODE_FACTORY3:
-	case LGE_BOOT_MODE_PIFBOOT:
-	case LGE_BOOT_MODE_PIFBOOT2:
-	case LGE_BOOT_MODE_PIFBOOT3:
-		res = 1;
-		break;
-	default:
-		res = 0;
-		break;
+		case LGE_BOOT_MODE_FACTORY:
+		case LGE_BOOT_MODE_FACTORY2:
+		case LGE_BOOT_MODE_FACTORY3:
+		case LGE_BOOT_MODE_PIFBOOT:
+		case LGE_BOOT_MODE_PIFBOOT2:
+		case LGE_BOOT_MODE_PIFBOOT3:
+			res = 1;
+			break;
+		default:
+			res = 0;
+			break;
 	}
 	return res;
 }
@@ -628,17 +611,17 @@ int lge_get_factory_cable(void)
 }
 
 /* for board revision */
-static hw_rev_type lge_bd_rev = HW_REV_1_0; /* HW_REV_B; */
+static hw_rev_type lge_bd_rev = HW_REV_C; //HW_REV_B;
 
 /* CAUTION: These strings are come from LK. */
-#if defined (CONFIG_MACH_MSM8974_G3_GLOBAL_COM) || defined (CONFIG_MACH_MSM8974_G3_KDDI)
+#if defined (CONFIG_MACH_MSM8974_G3_GLOBAL_COM) ||defined (CONFIG_MACH_MSM8974_G3_KDDI)
 char *rev_str[] = {"evb1", "evb2", "rev_a", "rev_a1", "rev_b", "rev_c", "rev_d",
-	"rev_e", "rev_g", "rev_h", "rev_10", "rev_11", "rev_12",
-	"reserved"};
+	"rev_e","rev_g", "rev_h", "rev_10", "rev_11", "rev_12",
+	"revserved"};
 #else
 char *rev_str[] = {"evb1", "evb2", "rev_a", "rev_b", "rev_c", "rev_d",
 	"rev_e", "rev_f", "rev_g", "rev_h", "rev_10", "rev_11", "rev_12",
-	"reserved"};
+	"revserved"};
 #endif
 
 static int __init board_revno_setup(char *rev_info)
@@ -664,105 +647,6 @@ hw_rev_type lge_get_board_revno(void)
     return lge_bd_rev;
 }
 
-#ifdef CONFIG_LGE_LCD_TUNING
-static struct platform_device lcd_misc_device = {
-	.name = "lcd_misc_msm",
-	.id = 0,
-};
-
-void __init lge_add_lcd_misc_devices(void)
-{
-	platform_device_register(&lcd_misc_device);
-}
-#endif
-
-#ifdef CONFIG_LCD_KCAL
-/*             
-                          
-                                
-*/
-int g_kcal_r = 255;
-int g_kcal_g = 255;
-int g_kcal_b = 255;
-
-int kcal_set_values(int kcal_r, int kcal_g, int kcal_b)
-{
-#if 0
-	int is_update = 0;
-
-	int kcal_r_limit = 250;
-	int kcal_g_limit = 250;
-	int kcal_b_limit = 253;
-
-	g_kcal_r = kcal_r < kcal_r_limit ? kcal_r_limit : kcal_r;
-	g_kcal_g = kcal_g < kcal_g_limit ? kcal_g_limit : kcal_g;
-	g_kcal_b = kcal_b < kcal_b_limit ? kcal_b_limit : kcal_b;
-
-	if (kcal_r < kcal_r_limit || kcal_g < kcal_g_limit || kcal_b < kcal_b_limit)
-		is_update = 1;
-	if (is_update)
-		update_preset_lcdc_lut();
-#else
-	g_kcal_r = kcal_r;
-	g_kcal_g = kcal_g;
-	g_kcal_b = kcal_b;
-#endif
-	return 0;
-}
-
-static int kcal_get_values(int *kcal_r, int *kcal_g, int *kcal_b)
-{
-	*kcal_r = g_kcal_r;
-	*kcal_g = g_kcal_g;
-	*kcal_b = g_kcal_b;
-	return 0;
-}
-
-static int kcal_refresh_values(void)
-{
-	return update_preset_lcdc_lut();
-}
-
-static struct kcal_platform_data kcal_pdata = {
-	.set_values = kcal_set_values,
-	.get_values = kcal_get_values,
-	.refresh_display = kcal_refresh_values
-};
-
-static struct platform_device kcal_platrom_device = {
-	.name   = "kcal_ctrl",
-	.dev = {
-		.platform_data = &kcal_pdata,
-	}
-};
-
-static int __init display_kcal_setup(char *kcal)
-{
-	char vaild_k = 0;
-	int kcal_r = 255;
-	int kcal_g = 255;
-	int kcal_b = 255;
-
-	sscanf(kcal, "%d|%d|%d|%c", &kcal_r, &kcal_g, &kcal_b, &vaild_k);
-	pr_info("kcal is %d|%d|%d|%c\n", kcal_r, kcal_g, kcal_b, vaild_k);
-
-	if (vaild_k != 'K') {
-		pr_info("kcal not calibrated yet : %d\n", vaild_k);
-		kcal_r = kcal_g = kcal_b = 255;
-	}
-
-	kcal_set_values(kcal_r, kcal_g, kcal_b);
-	return 1;
-}
-__setup("lge.kcal=", display_kcal_setup);
-
-void __init lge_add_lcd_kcal_devices(void)
-{
-	pr_info(" KCAL_DEBUG : %s\n", __func__);
-	platform_device_register(&kcal_platrom_device);
-}
-#endif
-
 #if defined(CONFIG_LGE_PM_BATTERY_ID_CHECKER)
 struct lge_battery_id_platform_data lge_battery_id_plat = {
 	.id = 13,
@@ -787,8 +671,8 @@ static enum lge_laf_mode_type lge_laf_mode = LGE_LAF_MODE_NORMAL;
 
 int __init lge_laf_mode_init(char *s)
 {
-    if (strcmp(s, "") && strcmp(s, "MID"))
-        lge_laf_mode = LGE_LAF_MODE_LAF;
+	if (strcmp(s, ""))
+		lge_laf_mode = LGE_LAF_MODE_LAF;
 
 	return 1;
 }
@@ -831,7 +715,6 @@ int lge_get_kswitch_status(void)
 {
     return kswitch_status;
 }
-#endif
 
 static int lge_boot_reason = -1; /* undefined for error checking */
 static int __init lge_check_bootreason(char *reason)
@@ -878,7 +761,7 @@ void __init lge_add_qsdl_device(void)
 {
 	platform_device_register(&lge_qsdl_device);
 }
-#endif /*                         */
+#endif /* CONFIG_LGE_QSDL_SUPPORT */
 
 #ifdef CONFIG_USB_G_LGE_ANDROID
 static int get_factory_cable(void)
@@ -886,21 +769,21 @@ static int get_factory_cable(void)
 	int res;
 
 	switch (lge_boot_mode) {
-	case LGE_BOOT_MODE_FACTORY:
-	case LGE_BOOT_MODE_PIFBOOT:
-		res = LGEUSB_FACTORY_130K;
-		break;
-	case LGE_BOOT_MODE_FACTORY2:
-	case LGE_BOOT_MODE_PIFBOOT2:
-		res = LGEUSB_FACTORY_56K;
-		break;
-	case LGE_BOOT_MODE_FACTORY3:
-	case LGE_BOOT_MODE_PIFBOOT3:
-		res = LGEUSB_FACTORY_910K;
-		break;
-	default:
-		res = 0;
-		break;
+		case LGE_BOOT_MODE_FACTORY:
+		case LGE_BOOT_MODE_PIFBOOT:
+			res = LGEUSB_FACTORY_130K;
+			break;
+		case LGE_BOOT_MODE_FACTORY2:
+		case LGE_BOOT_MODE_PIFBOOT2:
+			res = LGEUSB_FACTORY_56K;
+			break;
+		case LGE_BOOT_MODE_FACTORY3:
+		case LGE_BOOT_MODE_PIFBOOT3:
+			res = LGEUSB_FACTORY_910K;
+			break;
+		default:
+			res = 0;
+			break;
 	}
 	return res;
 }
@@ -926,4 +809,5 @@ void __init lge_add_android_usb_devices(void)
 {
 	platform_device_register(&lge_android_usb_device);
 }
+#endif
 #endif
