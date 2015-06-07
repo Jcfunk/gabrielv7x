@@ -88,7 +88,7 @@ rm boot.img
 echo ""
 echo "copy flashable zip to output>flashable"
 echo ""
-cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-nightly-0.7a-Linaro-opt.zip
+cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Linaro.zip
 
 echo "DONE"
 

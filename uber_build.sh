@@ -88,7 +88,7 @@ rm boot.img
 echo ""
 echo "copy flashable zip to output>flashable"
 echo ""
-cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-nightly-0.7a-Uber-opt.zip
+cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-nightly-0.7.x-Uber.zip
 
 echo "DONE"
 
