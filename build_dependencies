@@ -1,0 +1,1 @@
+sudo apt-get install libncurses5-dev build-essential zip git-core lib32stdc++6 lib32z1 lib32z1-dev
