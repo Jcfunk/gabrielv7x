@@ -37,19 +37,19 @@ echo ""
 echo ""
 echo "generating defconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- g3-global_com-perf_defconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- g3-global_com-perf_defconfig
 
 ### make changes
 echo ""
 echo "entering nconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- nconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- nconfig
 
 ### compile kernel
 echo ""
 echo "compiling kernel"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- zImage-dtb modules -j4
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- zImage-dtb modules -j4
 
 echo "checking for compiled kernel..."
 if [ -f arch/arm/boot/zImage-dtb ]
@@ -117,19 +117,19 @@ echo ""
 echo ""
 echo "generating defconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- g3-global_com-perf_defconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- g3-global_com-perf_defconfig
 
 ### make changes
 echo ""
 echo "entering nconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- nconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- nconfig
 
 ### compile kernel
 echo ""
 echo "compiling kernel"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- zImage-dtb modules -j4
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- zImage-dtb modules -j4
 
 echo "checking for compiled kernel..."
 if [ -f arch/arm/boot/zImage-dtb ]
@@ -177,10 +177,11 @@ zip kernel.zip -r *
 echo ""
 echo "copy flashable zip to output>flashable"
 echo ""
-cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Linaro.zip
+cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Saber.zip
 
 echo "DONE"
 
 ### THANKS GOD
 
 fi
+

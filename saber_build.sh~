@@ -6,17 +6,8 @@ today=`date '+%Y_%m_%d__%H_%M_%S'`;
 
 ### build zzmoove
 ### Build kernel for G3
-if [ ! -e arch/arm/boot/*.dtb ]; then
-rm arch/arm/boot/*.dtb
-rm arch/arm/boot/zImage-dtb
-rm arch/arm/boot/dt.img
-rm /media/dgod/kernel/kernel/output/boot.img
-rm /media/dgod/kernel/kernel/output/boot_bumped.img
-rm /media/dgod/kernel/kernel/output/ramdisk/dt.img
-rm /media/dgod/kernel/kernel/output/ramdisk/zImage-dtb
-rm /media/dgod/kernel/kernel/output/package/zz/boot.img
-rm /media/dgod/kernel/kernel/output/package/ps/boot.img
-rm /media/dgod/kernel/kernel/output/package/kernel.zip
+if [ ! -e ./arch/arm/boot/*.dtb ]; then
+rm ./arch/arm/boot/*.dtb
 fi
 
 ### cleaning
@@ -37,19 +28,19 @@ echo ""
 echo ""
 echo "generating defconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- g3-global_com-perf_defconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- g3-global_com-perf_defconfig
 
 ### make changes
 echo ""
 echo "entering nconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- nconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- nconfig
 
 ### compile kernel
 echo ""
 echo "compiling kernel"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- zImage-dtb modules -j4
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- zImage-dtb modules -j4
 
 echo "checking for compiled kernel..."
 if [ -f arch/arm/boot/zImage-dtb ]
@@ -89,14 +80,8 @@ fi
 
 ### build powersuspend
 
-if [ ! -e arch/arm/boot/*.dtb ]; then
-rm arch/arm/boot/*.dtb
-rm arch/arm/boot/zImage-dtb
-rm arch/arm/boot/dt.img
-rm /media/dgod/kernel/kernel/output/boot.img
-rm /media/dgod/kernel/kernel/output/boot_bumped.img
-rm /media/dgod/kernel/kernel/output/ramdisk/dt.img
-rm /media/dgod/kernel/kernel/output/ramdisk/zImage-dtb
+if [ ! -e ./arch/arm/boot/*.dtb ]; then
+rm ./arch/arm/boot/*.dtb
 fi
 
 ### cleaning
@@ -117,19 +102,19 @@ echo ""
 echo ""
 echo "generating defconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- g3-global_com-perf_defconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- g3-global_com-perf_defconfig
 
 ### make changes
 echo ""
 echo "entering nconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- nconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- nconfig
 
 ### compile kernel
 echo ""
 echo "compiling kernel"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- zImage-dtb modules -j4
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/sabermod-arm-eabi-4.9-06072015/bin/arm-eabi- zImage-dtb modules -j4
 
 echo "checking for compiled kernel..."
 if [ -f arch/arm/boot/zImage-dtb ]
@@ -177,10 +162,11 @@ zip kernel.zip -r *
 echo ""
 echo "copy flashable zip to output>flashable"
 echo ""
-cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Linaro.zip
+cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Saber.zip
 
 echo "DONE"
 
 ### THANKS GOD
 
 fi
+

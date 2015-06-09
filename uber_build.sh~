@@ -24,8 +24,6 @@ echo ""
 echo "cleaning"
 echo ""
 make clean mrproper
-rm /media/dgod/kernel/kernel/gabriel/arch/arm/boot/dt.img
-rm /media/dgod/kernel/kernel/gabriel/arch/arm/boot/zImage-dtb
 
 ### generate build name
 echo ""
@@ -37,19 +35,19 @@ echo ""
 echo ""
 echo "generating defconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- g3-global_com-perf_defconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/UBERTC-arm-eabi-4.9-17-5-15/bin/arm-eabi- g3-global_com-perf_defconfig
 
 ### make changes
 echo ""
 echo "entering nconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- nconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/UBERTC-arm-eabi-4.9-17-5-15/bin/arm-eabi- nconfig
 
 ### compile kernel
 echo ""
 echo "compiling kernel"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- zImage-dtb modules -j4
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/UBERTC-arm-eabi-4.9-17-5-15/bin/arm-eabi- zImage-dtb modules -j4
 
 echo "checking for compiled kernel..."
 if [ -f arch/arm/boot/zImage-dtb ]
@@ -93,10 +91,6 @@ if [ ! -e arch/arm/boot/*.dtb ]; then
 rm arch/arm/boot/*.dtb
 rm arch/arm/boot/zImage-dtb
 rm arch/arm/boot/dt.img
-rm /media/dgod/kernel/kernel/output/boot.img
-rm /media/dgod/kernel/kernel/output/boot_bumped.img
-rm /media/dgod/kernel/kernel/output/ramdisk/dt.img
-rm /media/dgod/kernel/kernel/output/ramdisk/zImage-dtb
 fi
 
 ### cleaning
@@ -117,19 +111,19 @@ echo ""
 echo ""
 echo "generating defconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- g3-global_com-perf_defconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/UBERTC-arm-eabi-4.9-17-5-15/bin/arm-eabi- g3-global_com-perf_defconfig
 
 ### make changes
 echo ""
 echo "entering nconfig"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- nconfig
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/UBERTC-arm-eabi-4.9-17-5-15/bin/arm-eabi- nconfig
 
 ### compile kernel
 echo ""
 echo "compiling kernel"
 echo ""
-make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/arm-cortex_a15-linux-gnueabihf-linaro_4.9.3-2015.03/bin/arm-cortex_a15-linux-gnueabihf- zImage-dtb modules -j4
+make ARCH=arm CROSS_COMPILE=/media/dgod/kernel/kernel/UBERTC-arm-eabi-4.9-17-5-15/bin/arm-eabi- zImage-dtb modules -j4
 
 echo "checking for compiled kernel..."
 if [ -f arch/arm/boot/zImage-dtb ]
@@ -177,7 +171,7 @@ zip kernel.zip -r *
 echo ""
 echo "copy flashable zip to output>flashable"
 echo ""
-cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Linaro.zip
+cp /media/dgod/kernel/kernel/output/package/kernel.zip /media/dgod/kernel/kernel/output/flashable/gabriel-0.7.x-Uber.zip
 
 echo "DONE"
 
