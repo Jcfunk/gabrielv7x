@@ -517,7 +517,7 @@ config SMARTASSV2_DOWN_RATE_US
 
 config SMARTASSV2_SLEEP_WAKEUP_FREQ
 	int "The frequency to set when waking up from sleep."
-	default 99999999
+	default 1190400
 	depends on CPU_FREQ_GOV_SMARTASSV2
 	help
 	The frequency to set when waking up from sleep.
