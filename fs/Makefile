@@ -13,11 +13,24 @@ obj-y :=	open.o read_write.o file_table.o super.o \
 		pnode.o drop_caches.o splice.o sync.o utimes.o \
 		stack.o fs_struct.o statfs.o
 
+# LGE_CHANGE_S
+#
+# do read/mmap profiling during booting
+# in order to use the data as readahead args
+#
+# byungchul.park@lge.com 20120503
+obj-y += sreadahead_prof.o
+# LGE_CHANGE_E
+
 ifeq ($(CONFIG_BLOCK),y)
 obj-y +=	buffer.o bio.o block_dev.o direct-io.o mpage.o ioprio.o
 else
 obj-y +=	no-block.o
 endif
+
+#SDCARD_MEDIAEXN_SYSTEMCALL_ENCRYPTION_S
+obj-y += LGSDEncManager.o
+#SDCARD_MEDIAEXN_SYSTEMCALL_ENCRYPTION_E
 
 obj-$(CONFIG_PROC_FS) += proc_namespace.o
 
@@ -130,5 +143,3 @@ obj-$(CONFIG_EXFAT_FS)		+= exfat/
 
 # Patched by YAFFS
 obj-$(CONFIG_YAFFS_FS)		+= yaffs2/
-
-obj-$(CONFIG_DYNAMIC_FSYNC)	+= dyn_sync_cntrl.o
