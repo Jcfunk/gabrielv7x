@@ -2,7 +2,7 @@ VERSION = 3
 PATCHLEVEL = 4
 SUBLEVEL = 0
 EXTRAVERSION =
-NAME =
+NAME = 0.7 D
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
